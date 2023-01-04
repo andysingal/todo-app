@@ -20,14 +20,19 @@ def create_book_table():
         # just to make sure the file is there
 
 def get_all_books():
-    with open(books_file, 'r') as file:
-       return json.load(file)
+    connection = sqlite3.connect ('data.db')
+    cursor = connection.cursor ()
+
+    cursor.execute('SELECT * FROM books')
+    connection.commit ()
+    connection.close ()
 
 def add_book(name,author):
     connection = sqlite3.connect('data.db')
     cursor = connection.cursor()
 
     cursor.execute('INSERT INTO books VALUES(?,?,0)',(name,author))
+    books = cursor.fetchall()
 
     connection.commit()
     connection.close()
