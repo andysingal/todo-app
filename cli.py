@@ -4,6 +4,7 @@ import time
 
 now = time.strftime ("%b %d,%Y %H:%M:%S")
 print(f"It is %s" % now)
+print("zzzzzhello")
 
 while True:
     # Get user input and strip space chars from it
