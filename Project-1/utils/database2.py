@@ -1,6 +1,7 @@
 from typing import List, Tuple
 
-from utils.database_connection import DatabaseConnection
+from .database_connection import DatabaseConnection
+
 
 Book = Tuple[int, str, str, int]
 
@@ -10,7 +11,7 @@ def create_book_table() -> None:
         cursor = connection.cursor()
 
         # SQLite automatically makes `integer primary key` row auto-incrementing (see link in further reading)
-        cursor.execute('CREATE TABLE books (id integer primary key, name text, author text, read integer default 0)')
+        cursor.execute('CREATE TABLE IF NOT EXISTS books (id integer primary key, name text, author text, read integer default 0)')
 
 
 def get_all_books() -> List[Book]:
@@ -18,8 +19,13 @@ def get_all_books() -> List[Book]:
         cursor = connection.cursor()
 
         cursor.execute('SELECT * FROM books')
-        books = cursor.fetchall()
-    return books
+        books = [
+            {'name': row[0], 'author': row[1], 'read': row[2]}
+            for row in cursor.fetchall()
+        ]
+        return books
+
+
 
 
 def insert_book(name: str, author: str) -> None:

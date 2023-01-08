@@ -1,16 +1,18 @@
-from utils import database1
+from utils import database2
+
 
 USER_CHOICE = """
 Enter:
-- 'a' to add a new book
-- 'l' to list all books
-- 'r' to mark a book as read
-- 'd' to delete a book
-- 'q' to quit
+'a' to add a new book
+'l' to list all books
+'r' to mark a book as read
+'d' to delete a book
+'q' to quit
 Your choice: """
 
+
 def menu():
-    database1.create_book_table()
+    database2.create_book_table()
     user_input = input(USER_CHOICE)
     while user_input != 'q':
         if user_input == 'a':
@@ -21,26 +23,33 @@ def menu():
             prompt_read_book()
         elif user_input == 'd':
             prompt_delete_book()
-        else:
-            print("Unknown command, Please try again")
+
         user_input = input(USER_CHOICE)
+
+
 def prompt_add_book():
-    name = input('Enter the new book here: ')
+    name = input('Enter the new book name: ')
     author = input('Enter the new book author: ')
 
-    database1.add_book(name,author)
+    database2.insert_book(name, author)
+
 
 def list_books():
-    books = database1.get_all_books()
-    for book in books:
-        read = 'YES' if book['read']  else 'NO'
+    for book in database2.get_all_books():
+        read = 'YES' if book['read'] else 'NO'  # book[3] will be a falsy value (0) if not read
         print(f"{book['name']} by {book['author']} — Read: {read}")
+
+
 def prompt_read_book():
     name = input('Enter the name of the book you just finished reading: ')
-    database1.mark_book_as_read(name)
+
+    database2.mark_book_as_read(name)
+
 
 def prompt_delete_book():
     name = input('Enter the name of the book you wish to delete: ')
-    database1.delete_book(name)
+
+    database2.delete_book(name)
+
 
 menu()
