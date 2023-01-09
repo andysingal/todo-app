@@ -9,6 +9,7 @@ window = sg.Window('My To-Do App',
                    layout=[[label],[input_box,add_button]],
                    font=('Helvetica',20))
 while True:
+        #Add files to the text file
         event,values = window.read()
         # print("Hello")
         print(event)
