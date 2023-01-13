@@ -1,4 +1,4 @@
-feet_inches = input("Enter feet and inches")
+# feet_inches = input("Enter feet and inches")
 
 
 def parse(feet_inches):
@@ -11,3 +11,4 @@ def parse(feet_inches):
 def convert(feet, inches):
     meters = feet * 0.3048 + inches * 0.0254
     return meters
+
