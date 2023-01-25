@@ -41,7 +41,7 @@ while True:
             print (row)
     elif user_action.startswith ("edit"):
         try:
-            number = int (user_action[5:])
+            number = int(user_action[5:])
             number = number - 1
 
             todos = get_todos ()
